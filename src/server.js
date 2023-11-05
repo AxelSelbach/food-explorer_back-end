@@ -1,7 +1,5 @@
 require('express-async-errors');
 
-const cors = require('cors');
-
 const database = require('./database/sqlite');
 
 const AppError = require('./utils/AppError');
@@ -15,6 +13,8 @@ app.use(express.json());
 
 app.use(routes);
 
+database()
+
 app.use((error, request, response, next) => {
   if (error instanceof AppError) {
     return response.status(error.statusCode).json({
@@ -22,7 +22,15 @@ app.use((error, request, response, next) => {
       message: error.message
     });
   }
-})
+
+  console.error(error);
+
+  return response.status(500).json({
+    status: 500,
+    message: 'Internal server error'
+  });
+
+});
 
 const PORT = 3333;
 
