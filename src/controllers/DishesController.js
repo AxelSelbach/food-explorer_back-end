@@ -35,5 +35,8 @@ class DishesController {
 
     return response.status(201).json();
 
-  }
-}
+  };
+
+};
+
+module.exports = DishesController;
