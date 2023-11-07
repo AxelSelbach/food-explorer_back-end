@@ -4,7 +4,7 @@ const { hash } = require('bcryptjs');
 
 class UsersController{
 
-  async createUser(request, response){
+  async create(request, response){
     const {name, email, password} = request.body;
 
     const database = await sqliteConnection()
