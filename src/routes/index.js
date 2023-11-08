@@ -8,7 +8,7 @@ const dishesRoutes = require('./dishes.routes');
 const routes = Router();
 routes.use('/users', usersRoutes);
 routes.use('/sessions', sessionsRoutes);
-routes.use('/ingredients', ingredientsRoutes);
 routes.use('/dishes', dishesRoutes);
+routes.use('/ingredients', ingredientsRoutes);
 
 module.exports = routes;
