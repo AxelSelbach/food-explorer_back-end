@@ -64,7 +64,7 @@ class DishesController {
   };
 
   async show(request, response) {
-    const dish_id = request.params;
+    const dish_id = request.params.id;
 
     const dish = await knex("dishes")
     .where({ id: dish_id })
@@ -75,7 +75,7 @@ class DishesController {
     }
 
     const ingredients = await knex("ingredients")
-    .where({ dish_id: id})
+    .where({ dish_id })
     .orderBy("name");
 
     return response.json({ 
@@ -86,9 +86,9 @@ class DishesController {
   };
 
   async index(request, response) {
-    const dish_id = request.user.id
+    const dish_id = request.params.id;
 
-    const { name, ingredients } = request.query
+    const { name, ingredients } = request.query;
 
     const dishes = knex("dishes")
     .where("name", "like", `%${name}%`)
@@ -98,7 +98,7 @@ class DishesController {
 
     return response.json(dishes);
 
-  }
+};
 
   async delete(request, response) {
     const dish_id = request.params.id;
