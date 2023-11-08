@@ -72,7 +72,6 @@ class DishesController {
 
     if(!dish) {
       throw new AppError("This dish does not exist", 404);
-      
     }
 
     const ingredients = await knex("ingredients")
@@ -85,6 +84,21 @@ class DishesController {
     });
 
   };
+
+  async index(request, response) {
+    const dish_id = request.user.id
+
+    const { name, ingredients } = request.query
+
+    const dishes = knex("dishes")
+    .where("name", "like", `%${name}%`)
+    .where("ingredients", "like", `%${ingredients}%`)
+    .innerJoin("ingredients", "dish.id", "ingredients.dish_id")
+    .select("dishes.name", "dishes.description", "dishes.picture", "dishes.price", "dishes.category", "ingredients.ingredients");
+
+    return response.json(dishes);
+
+  }
 
   async delete(request, response) {
     const dish_id = request.params.id;
