@@ -63,6 +63,15 @@ class DishesController {
 
   };
 
+  async delete(request, response) {
+    const dish_id = request.params.id;
+
+    await knex("dishes").where({ id: dish_id }).delete();
+
+    return response.json();
+
+  };
+
 };
 
 module.exports = DishesController;
