@@ -14,7 +14,7 @@ class DishesController {
       throw new AppError("This dish has already been created", 409)
     };
 
-    const { dish_id } = await knex("notes").insert({
+    const [ dish_id ]  = await knex("notes").insert({
         name,
         description,
         picture,
@@ -34,6 +34,25 @@ class DishesController {
     await knex("ingredients").insert(insertIngredients);
 
     return response.status(201).json();
+
+  };
+
+  async update(request, response) {
+    const { dish_id } = request.params.id;
+    const { name, description, price, category, ingredients } = request.body;
+
+    const updateDishes = await knex("dishes")
+    .where({ id: dish_id })
+    .update({
+      name,
+      description,
+      picture,
+      price,
+      category,
+      ingredients
+    });
+
+    return response.status(200).json();
 
   };
 
