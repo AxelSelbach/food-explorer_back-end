@@ -1,12 +1,14 @@
 const knex = require('../database/knex');
 
 class IngredientsController {
-  async create(request, response) {
-    const { name } = request.body;
+  async index(request, response) {
+    const user_id = request.user.id
 
-    const ingredients = await knex("ingredients").insert({ name });
+    const ingredients = await knex("ingredients")
+    .where({ user_id })
+    .groubBy("name")
 
-    return response.status(201).json(ingredients);
+    return response.json(ingredients);
 
   };
   

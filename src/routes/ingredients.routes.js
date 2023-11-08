@@ -4,6 +4,6 @@ const ingredientsController = new IngredientsController();
 
 const ingredientsRoutes = Router();
 
-ingredientsRoutes.post('/', ingredientsController.create)
+ingredientsRoutes.get('/', ingredientsController.index)
 
 module.exports = ingredientsRoutes;
