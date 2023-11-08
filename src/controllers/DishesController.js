@@ -63,6 +63,29 @@ class DishesController {
 
   };
 
+  async show(request, response) {
+    const dish_id = request.params;
+
+    const dish = await knex("dishes")
+    .where({ id: dish_id })
+    .first();
+
+    if(!dish) {
+      throw new AppError("This dish does not exist", 404);
+      
+    }
+
+    const ingredients = await knex("ingredients")
+    .where({ dish_id: id})
+    .orderBy("name");
+
+    return response.json({ 
+      ...dish,
+      ingredients
+    });
+
+  };
+
   async delete(request, response) {
     const dish_id = request.params.id;
 
