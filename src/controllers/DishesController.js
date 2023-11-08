@@ -4,7 +4,6 @@ const AppError = require('../utils/AppError');
 class DishesController {
   async create(request, response) {
     const { name, description, picture, price, category, ingredients } = request.body;
-    const user_id = request.user.DishesController;
 
     const checkDishExists = await knex("dishes")
     .where("name", name)
@@ -14,17 +13,15 @@ class DishesController {
       throw new AppError("This dish has already been created", 409)
     };
 
-    const [ dish_id ]  = await knex("notes").insert({
+    const [ dish_id ]  = await knex("dishes").insert({
         name,
         description,
         picture,
         price,
-        category,
-        ingredients,
-        user_id
+        category
     });
 
-    const insertIngredients = ingredients.map((name) => {
+    const insertIngredients = ingredients.map(name => {
       return {
         dish_id,
         name
@@ -33,12 +30,12 @@ class DishesController {
 
     await knex("ingredients").insert(insertIngredients);
 
-    return response.status(201).json();
+    return response.json();
 
   };
 
   async update(request, response) {
-    const { dish_id } = request.params.id;
+    const dish_id = request.params.id;
     const { name, description, price, category, ingredients } = request.body;
 
     const updateDishes = await knex("dishes")
@@ -46,13 +43,23 @@ class DishesController {
     .update({
       name,
       description,
-      picture,
       price,
       category,
-      ingredients
     });
 
-    return response.status(200).json();
+    await knex("ingredients").where({ id: dish_id }).delete()
+
+    const updateIngredients = ingredients.map((name) => {
+      return {
+        dish_id,
+        name
+      }
+    });
+
+    await knex("ingredients").where({ id: dish_id }).insert(updateIngredients)
+    
+
+    return response.json(updateDishes);
 
   };
 
