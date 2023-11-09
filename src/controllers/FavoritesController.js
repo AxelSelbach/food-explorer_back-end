@@ -40,6 +40,15 @@ class FavoritesController {
 
   };
 
+  async delete(request, response) {
+    const { dish_id } = request.params
+
+    await knex("favorites").where({ dish_id }).delete();
+
+    return response.json();
+
+  };
+
 };
 
 module.exports = FavoritesController;
