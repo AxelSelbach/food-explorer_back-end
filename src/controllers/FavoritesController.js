@@ -23,6 +23,23 @@ class FavoritesController {
 
   };
 
+  async index(request, response) {
+    const user_id = request.user.id;
+
+    const favorites = await knex("favorites")
+    .where({ user_id })
+    .join("dishes", "favorites.dish_id", "=", "dishes.id")
+    .select([
+      "dish.id",
+      "dish.name",
+      "dish.picture"
+    ])
+    .orderBy("dish.name")
+
+    return response.json(favorites);
+
+  };
+
 };
 
 module.exports = FavoritesController;
