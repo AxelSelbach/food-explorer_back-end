@@ -7,3 +7,4 @@ const favoritesController = new FavoritesController();
 const favoritesRoutes = Router();
 
 favoritesRoutes.put("/", favoritesController.create)
+favoritesRoutes.get("/", favoritesController.index)
