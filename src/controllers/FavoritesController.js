@@ -1,4 +1,4 @@
-const knex = require('knex');
+const knex = require('../database/knex');
 const AppErro = require('../utils/AppError');
 
 class FavoritesController {
