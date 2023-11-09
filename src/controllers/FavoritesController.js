@@ -1,5 +1,5 @@
 const knex = require('../database/knex');
-const AppErro = require('../utils/AppError');
+const AppError = require('../utils/AppError');
 
 class FavoritesController {
   async create(request, response) {
@@ -9,7 +9,7 @@ class FavoritesController {
     const favoriteDishExists = await knex("favorites").where({ user_id, dish_id }).first();
 
     if (favoriteDishExists) {
-      throw new AppErro('This dish is already in your favorites', 409);
+      throw new AppError('This dish is already in your favorites', 409);
     } 
 
     const favoriteDish = {
