@@ -42,13 +42,13 @@ class RequestsController {
   async show(request, response) {
     const request_id = request.params.id;
 
-    const request = await knex('requests').where({ id: request_id }).first();
+    const requests = await knex('requests').where({ id: request_id }).first();
 
-    if (!request) {
+    if (!requests) {
       throw new AppError('This request does not exist', 404)
     };
 
-    return response.json(request);
+    return response.json(requests);
 
   };
 
