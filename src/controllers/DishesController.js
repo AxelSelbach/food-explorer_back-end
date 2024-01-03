@@ -44,16 +44,16 @@ class DishesController {
       category
     })
 
-    await knex('ingredients').where({ id: dish_id }).delete()
+    await knex('ingredients').where({ dish_id }).delete()
 
-    const updateIngredients = ingredients.map(name => {
+    const updateIngredients = ingredients.map(ingredientName => {
       return {
         dish_id,
-        name
+        name: ingredientName,
       }
     })
 
-    await knex('ingredients').where({ id: dish_id }).insert(updateIngredients)
+    await knex('ingredients').insert(updateIngredients)
 
     return response.json(updateDishes)
   }
