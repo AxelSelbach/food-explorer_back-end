@@ -4,7 +4,7 @@ Esta aplicação simula um Web App para um restaurante, rede de fastfood,  etc
 >Projeto Final Explorer (API)
 ![preview](https://cdn.discordapp.com/attachments/1135990801948745979/1154859433684381716/Mockups.png)
 
-[🔗 Clique aqui para acessar o deploy do back-end! ](https://github.com/AxelSelbach)
+[🔗 Clique aqui para acessar o deploy da aplicação! ](https://food-explorer-front-end-cyan.vercel.app/)
 
 
 ## ⚙ Tecnologias ⚙ 
