@@ -35,14 +35,19 @@ class DishesController {
     const dish_id = request.params.id
     const { name, description, price, picture, category, ingredients } = request.body
 
-
-    const updateDishes = await knex('dishes').where({ id: dish_id }).update({
+    const updateFields = {
       name,
-      picture,
       description,
       price,
       category
-    })
+    }
+
+    if (picture !== undefined && picture !== null && picture !== '') {
+      updateFields.picture = picture;
+    }
+
+
+    const updateDishes = await knex('dishes').where({ id: dish_id }).update(updateFields)
 
     await knex('ingredients').where({ dish_id }).delete()
 
