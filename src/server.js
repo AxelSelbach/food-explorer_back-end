@@ -2,7 +2,7 @@ require('dotenv/config')
 require('express-async-errors');
 
 const corsOptions = {
-  origin: 'https://food-explorer-front-end-cyan.vercel.app/',
+  origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
