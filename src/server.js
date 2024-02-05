@@ -1,8 +1,14 @@
 require('dotenv/config')
 require('express-async-errors');
 
+const corsOptions = {
+  origin: 'https://food-explorer-front-end-cyan.vercel.app/',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
 
-const cors = require('cors')
+const cors = require('cors');
 
 const database = require('./database/sqlite');
 
@@ -14,7 +20,7 @@ const routes = require('./routes');
 
 const app = express();
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
